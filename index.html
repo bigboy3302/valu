@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game with Volume Control and Multiple Bombs</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+        #gameCanvas {
+            border: 2px solid black;
+            background-color: #f0f0f0;
+        }
+        #volumeControl {
+            margin-top: 20px;
+        }
+        #startButton {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Snake Game with Volume Control and Multiple Bombs</h1>
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <button id="startButton">Start Game</button>
+    <div id="volumeControl">
+        <label for="volume">Volume: <span id="volume-display">0</span></label>
+        <input type="range" id="volume" min="0" max="100" value="0" disabled>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
