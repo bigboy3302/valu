@@ -9,6 +9,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center; /* Center vertically */
             font-family: Arial, sans-serif;
             margin: 0;
             overflow: hidden;
@@ -35,29 +36,36 @@
         }
 
         /* Image box */
-#imgBox {
-    position: absolute;
-    width: 200px; /* Increased size of the image box */
-    height: 200px; /* Increased size of the image box */
-    overflow: hidden; /* Hide overflow */
-    display: none; /* Initially hidden */
-    z-index: 1; /* Ensure it is above background */
-    border: 2px solid white; /* Optional border for the box */
-}
+        #imgBox {
+            position: absolute;
+            width: 200px; /* Increased size of the image box */
+            height: 200px; /* Increased size of the image box */
+            overflow: hidden; /* Hide overflow */
+            display: none; /* Initially hidden */
+            z-index: 1; /* Ensure it is above background */
+            border: 2px solid white; /* Optional border for the box */
+        }
 
-.surpriseImage {
-    width: 100%; /* Fill the box */
-    height: auto; /* Maintain aspect ratio */
-    position: absolute; /* Allow positioning */
-}
+        .surpriseImage {
+            width: 100%; /* Fill the box */
+            height: auto; /* Maintain aspect ratio */
+            position: absolute; /* Allow positioning */
+        }
 
+        /* Big text style */
+        .big-text {
+            font-size: 48px; /* Adjust the font size as needed */
+            color: white; /* Text color */
+            z-index: 10; /* Ensure it is above the background */
+            text-align: center; /* Center the text */
+        }
 
         /* Burger menu styles */
         .burger-menu {
             position: fixed;
             top: 10px;
             left: 10px;
-            background-color: #333;
+            background-color: #783497;
             color: white;
             padding: 10px;
             font-size: 24px;
@@ -70,7 +78,7 @@
             padding: 10px 20px;
             font-size: 18px;
             color: white;
-            background-color: #444;
+            background-color: #8f5f5f;
             border-radius: 5px;
             text-decoration: none;
             display: none; /* Hidden until menu is activated */
@@ -96,23 +104,23 @@
 
         /* Dark mode styles */
         body.dark-mode {
-            background-color: #121212; /* Dark background */
-            color: white; /* Light text color */
+            background-color: #8d2f2f; /* Dark background */
+            color: rgb(255, 255, 255); /* Light text color */
         }
 
         .menu-button {
-            background-color: #444; /* Change button color for better contrast */
+            background-color: #915d5d; /* Change button color for better contrast */
         }
 
         .menu-button.show:hover {
-            background-color: #555; /* Darker color on hover */
+            background-color: #0e9186; /* Darker color on hover */
         }
 
         #darkModeButton {
             margin: 10px;
             padding: 10px 20px;
             font-size: 18px;
-            background-color: #444;
+            background-color: #3f0e0e;
             color: white;
             border: none;
             border-radius: 5px;
@@ -125,6 +133,14 @@
     <!-- Background Animation -->
     <div id="background"></div>
 
+    <!-- Big Hello Text -->
+    <div class="big-text">Nesit mani
+        <br>
+        with all the love
+        <br>
+        ❤
+    </div>
+
     <!-- Image Box -->
     <div id="imgBox">
         <img id="surpriseImage1" class="surpriseImage" src="IMG_6897.jpg" alt="Surprise 1" /> <!-- First image -->
@@ -136,9 +152,8 @@
 
     <!-- Menu Buttons -->
     <a href="snake.html" class="menu-button" id="homeButton">Snake</a>
-    <a href="#button1" class="menu-button" id="button1">Button 1</a>
-    <a href="#button2" class="menu-button" id="button2">Button 2</a>
-    <a href="#button3" class="menu-button" id="button3">Button 3</a>
+    <a href="inpu.html" class="menu-button" id="button1">Phone</a>
+    <a href="why.mp4" class="menu-button" id="button2">why?</a>
 
     <!-- Dark Mode Button -->
     <button id="darkModeButton">bff</button> <!-- Change initial text -->

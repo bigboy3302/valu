@@ -1,5 +1,3 @@
-
-
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const boxSize = 20;
@@ -7,9 +5,11 @@ let snake, direction, apple, bombs, volumeLevel, gameInterval, gameStarted, fram
 
 // Add the audio element for the jump scare
 const jumpScareSound = new Audio('ssd.mp3'); // Make sure this file is in the correct path
+const appleSound = new Audio('num num.mp3'); // Sound for eating apple
+const bombSound = new Audio('cabum.mp3');   // Sound for hitting bomb
 
 // Initialize volume level
-volumeLevel = 0; // Start with 12% volume
+volumeLevel = 0; // Start with 0% volume
 
 // Update volume display and slider
 function updateVolume() {
@@ -18,18 +18,28 @@ function updateVolume() {
     volumeSlider.value = volumeLevel;
     volumeDisplay.textContent = volumeLevel;
     jumpScareSound.volume = volumeLevel / 100; // Update jump scare sound volume
+    appleSound.volume = volumeLevel / 100; // Update apple sound volume
+    bombSound.volume = volumeLevel / 100; // Update bomb sound volume
 }
 
 // Increase volume when apple is collected
 function collectApple() {
     volumeLevel = Math.min(volumeLevel + 2, 100);
     updateVolume();
+    appleSound.currentTime = 0; // Reset sound to start
+    appleSound.play().catch(error => {
+        console.error('Error playing apple sound:', error);
+    }); // Play apple sound immediately
 }
 
 // Decrease volume when snake hits bomb
 function hitBomb() {
     volumeLevel = Math.max(volumeLevel - 3, 0);
     updateVolume();
+    bombSound.currentTime = 0; // Reset sound to start
+    bombSound.play().catch(error => {
+        console.error('Error playing bomb sound:', error);
+    }); // Play bomb sound immediately
 }
 
 // Reset the game state after death
@@ -38,8 +48,6 @@ function resetGame() {
     direction = 'RIGHT';
     apple = spawnApple();
     bombs = spawnBombs(4);
-    // Optional: Keep previous volume or set a default level like 12
-    // volumeLevel = 0; 
     gameStarted = false;
     frameCount = 0; // Reset frame count
     updateVolume();
@@ -151,6 +159,10 @@ function draw() {
     // Check for collisions with walls or itself
     if (head.x < 0 || head.y < 0 || head.x >= canvas.width || head.y >= canvas.height ||
         snake.some(segment => segment.x === head.x && segment.y === head.y)) {
+        // If it hits a wall, divide the volume by 2
+        volumeLevel = Math.max(volumeLevel / 2, 0);
+        updateVolume();
+        
         endGame();
         return;
     }
@@ -187,15 +199,11 @@ function toggleMenu() {
     menuButtons.forEach(button => {
         button.classList.toggle('show');
         if (button.classList.contains('show')) {
-            // Get random positions within the viewport
-            const x = Math.random() * (window.innerWidth - 100); // 100 is a rough estimate for button width
-            const y = Math.random() * (window.innerHeight - 50); // 50 is a rough estimate for button height
-            button.style.position = 'absolute'; // Allow absolute positioning
-            button.style.left = `${x}px`;
-            button.style.top = `${y}px`;
+            button.style.top = `${Math.random() * 80 + 10}vh`;
+            button.style.left = `${Math.random() * 80 + 10}vw`;
         }
     });
 }
 
-// Event listener for the burger menu button
+// Event listener for burger menu button click
 burgerMenu.addEventListener('click', toggleMenu);

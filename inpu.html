@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone Picker</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            overflow: hidden;
+            background-color: #03d6e6; /* Dark background for better visibility */
+        }
+
+        /* Input Field Style */
+        .form-control {
+            position: relative;
+            margin: 20px 0;
+            width: 250px; /* Wider input */
+        }
+
+        .form-control input {
+            background-color: transparent;
+            border: 0;
+            border-bottom: 2px #fff solid;
+            display: block;
+            width: 100%;
+            padding: 15px 0;
+            font-size: 18px;
+            color: #fff;
+        }
+
+        .form-control input:focus,
+        .form-control input:valid {
+            outline: 0;
+            border-bottom-color: lightblue;
+        }
+
+        .form-control label {
+            position: absolute;
+            top: 15px;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .form-control label span {
+            display: inline-block;
+            font-size: 18px;
+            color: #fff;
+            transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .form-control input:focus + label span,
+        .form-control input:valid + label span {
+            color: lightblue;
+            transform: translateY(-30px);
+        }
+
+        /* Card Style */
+        .number-card {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            border-radius: 8px;
+            transition: transform 0.5s;
+            user-select: none; /* Prevent text selection */
+        }
+
+        /* Burger menu styles */
+        .burger-menu {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: #6722a8;
+            color: white;
+            padding: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .menu-button {
+            position: absolute;
+            padding: 10px 20px;
+            font-size: 18px;
+            color: white;
+            background-color: #2b6a94;
+            border-radius: 5px;
+            text-decoration: none;
+            display: none; /* Hidden until menu is activated */
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .menu-button.show {
+            display: block;
+            opacity: 1;
+            animation: jumpAndRotate 3s ease-in-out;
+            animation-fill-mode: forwards;
+        }
+
+        /* Animation for jumping and rotating */
+        @keyframes jumpAndRotate {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(-30px, -30px) rotate(90deg); }
+            50% { transform: translate(30px, 30px) rotate(180deg); }
+            75% { transform: translate(-30px, 30px) rotate(270deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+
+        /* Confirmation popup styles */
+        #confirmationPopup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 107, 194, 0.493);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(114, 85, 85, 0.5);
+            z-index: 100;
+        }
+
+        #confirmationPopup button {
+            margin: 5px;
+            padding: 10px 15px;
+            background-color: #9b2034;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Burger Menu Icon -->
+    <div class="burger-menu" id="burgerMenu">☰ Menu</div>
+
+    <!-- Menu Buttons -->
+    <a href="index.html" class="menu-button" id="homeButton">index</a>
+    <a href="snake.html" class="menu-button" id="button1">snake</a>
+    <a href="why.mp4" class="menu-button" id="button2">why?</a>
+
+    <!-- Input Field for Selected Numbers -->
+    <div class="form-control">
+        <input type="text" id="selectedNumbers" readonly>
+        <label>
+            <span style="transition-delay:0ms">+</span><span style="transition-delay:50ms">3</span><span style="transition-delay:100ms">7</span><span style="transition-delay:150ms">1</span>
+        </label>
+    </div>
+
+    <!-- Confirmation Popup -->
+    <div id="confirmationPopup">
+        <p id="confirmationMessage"></p>
+        <button id="yesButton">Yes Dad</button>
+        <button id="noButton">Hell No</button>
+    </div>
+
+    <script src="scripta.js"></script> <!-- Link to your script.js -->
+</body>
+</html>
