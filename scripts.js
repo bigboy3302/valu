@@ -29,12 +29,12 @@ function toggleDarkMode() {
     // Show or hide the surprise image based on dark mode status
     if (isDarkMode) {
         imgBox.style.display = 'block'; // Show the image box
-        darkModeButton.textContent = 'Light Mode'; // Change button text to Light Mode
+        darkModeButton.textContent = 'bff'; // Change button text to Light Mode
         showNextImage(); // Show the next image
         startSurpriseAnimation(); // Start jumping animation
     } else {
         imgBox.style.display = 'none'; // Hide the image box
-        darkModeButton.textContent = 'Dark Mode'; // Change button text to Dark Mode
+        darkModeButton.textContent = 'bff'; // Change button text to Dark Mode
         stopSurpriseAnimation(); // Stop jumping animation
     }
 }
