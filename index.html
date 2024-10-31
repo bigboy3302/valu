@@ -3,38 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snake Game with Volume Control and Multiple Bombs</title>
+    <title>Document</title>
     <style>
         body {
             display: flex;
             flex-direction: column;
             align-items: center;
             font-family: Arial, sans-serif;
+            margin: 0;
+            overflow: hidden;
+            transition: background-color 0.3s, color 0.3s; /* Smooth transition for dark mode */
+            height: 100vh; /* Ensure body takes full height */
+            width: 100vw; /* Ensure body takes full width */
+            position: relative; /* Position for background */
         }
-        #gameCanvas {
-            border: 2px solid black;
-            background-color: #f0f0f0;
+
+        /* Background animation */
+        #background {
+            position: absolute;
+            width: 100%; /* Twice the width to allow for movement */
+            height: 100%;
+            background-size: cover;
+            animation: moveBackground 10s linear infinite; /* Adjust speed as needed */
+            z-index: -1; /* Place background behind other elements */
         }
-        #volumeControl {
-            margin-top: 20px;
+
+        @keyframes moveBackground {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(-50%); } /* Move left */
+            100% { transform: translateX(0); } /* Move back to original position */
         }
-        #startButton {
-            margin-top: 15px;
-            padding: 10px 20px;
-            font-size: 16px;
+
+        /* Image box */
+#imgBox {
+    position: absolute;
+    width: 200px; /* Increased size of the image box */
+    height: 200px; /* Increased size of the image box */
+    overflow: hidden; /* Hide overflow */
+    display: none; /* Initially hidden */
+    z-index: 1; /* Ensure it is above background */
+    border: 2px solid white; /* Optional border for the box */
+}
+
+.surpriseImage {
+    width: 100%; /* Fill the box */
+    height: auto; /* Maintain aspect ratio */
+    position: absolute; /* Allow positioning */
+}
+
+
+        /* Burger menu styles */
+        .burger-menu {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            font-size: 24px;
             cursor: pointer;
+            z-index: 10;
+        }
+
+        .menu-button {
+            position: absolute;
+            padding: 10px 20px;
+            font-size: 18px;
+            color: white;
+            background-color: #444;
+            border-radius: 5px;
+            text-decoration: none;
+            display: none; /* Hidden until menu is activated */
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .menu-button.show {
+            display: block;
+            opacity: 1;
+            animation: jumpAndRotate 0.5s ease-in-out; /* Shorter duration for buttons */
+            animation-fill-mode: forwards;
+        }
+
+        /* Animation for jumping and rotating */
+        @keyframes jumpAndRotate {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(-30px, -30px) rotate(90deg); }
+            50% { transform: translate(30px, 30px) rotate(180deg); }
+            75% { transform: translate(-30px, 30px) rotate(270deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #121212; /* Dark background */
+            color: white; /* Light text color */
+        }
+
+        .menu-button {
+            background-color: #444; /* Change button color for better contrast */
+        }
+
+        .menu-button.show:hover {
+            background-color: #555; /* Darker color on hover */
+        }
+
+        #darkModeButton {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #444;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 10;
         }
     </style>
 </head>
 <body>
-    <h1>Snake Game with Volume Control and Multiple Bombs</h1>
-    <canvas id="gameCanvas" width="400" height="400"></canvas>
-    <button id="startButton">Start Game</button>
-    <div id="volumeControl">
-        <label for="volume">Volume: <span id="volume-display">0</span></label>
-        <input type="range" id="volume" min="0" max="100" value="0" disabled>
+    <!-- Background Animation -->
+    <div id="background"></div>
+
+    <!-- Image Box -->
+    <div id="imgBox">
+        <img id="surpriseImage1" class="surpriseImage" src="IMG_6897.jpg" alt="Surprise 1" /> <!-- First image -->
+        <img id="surpriseImage2" class="surpriseImage" src="IMG_6970.jpg" alt="Surprise 2" style="display: none;" /> <!-- Second image -->
     </div>
 
-    <script src="script.js"></script>
+    <!-- Burger Menu Icon -->
+    <div class="burger-menu" id="burgerMenu">☰ Menu</div>
+
+    <!-- Menu Buttons -->
+    <a href="snake.html" class="menu-button" id="homeButton">Snake</a>
+    <a href="#button1" class="menu-button" id="button1">Button 1</a>
+    <a href="#button2" class="menu-button" id="button2">Button 2</a>
+    <a href="#button3" class="menu-button" id="button3">Button 3</a>
+
+    <!-- Dark Mode Button -->
+    <button id="darkModeButton">Dark Mode</button> <!-- Change initial text -->
+
+    <script src="scripts.js"></script> <!-- Link to your scripts.js -->
 </body>
 </html>

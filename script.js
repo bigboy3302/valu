@@ -1,7 +1,15 @@
+
+
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const boxSize = 20;
-let snake, direction, apple, bombs, volumeLevel, gameInterval, gameStarted;
+let snake, direction, apple, bombs, volumeLevel, gameInterval, gameStarted, frameCount;
+
+// Add the audio element for the jump scare
+const jumpScareSound = new Audio('ssd.mp3'); // Make sure this file is in the correct path
+
+// Initialize volume level
+volumeLevel = 0; // Start with 12% volume
 
 // Update volume display and slider
 function updateVolume() {
@@ -9,6 +17,7 @@ function updateVolume() {
     const volumeDisplay = document.getElementById("volume-display");
     volumeSlider.value = volumeLevel;
     volumeDisplay.textContent = volumeLevel;
+    jumpScareSound.volume = volumeLevel / 100; // Update jump scare sound volume
 }
 
 // Increase volume when apple is collected
@@ -29,8 +38,10 @@ function resetGame() {
     direction = 'RIGHT';
     apple = spawnApple();
     bombs = spawnBombs(4);
-    volumeLevel = 0;
+    // Optional: Keep previous volume or set a default level like 12
+    // volumeLevel = 0; 
     gameStarted = false;
+    frameCount = 0; // Reset frame count
     updateVolume();
 }
 
@@ -39,14 +50,34 @@ function startGame() {
     if (!gameStarted) {
         resetGame();
         gameStarted = true;
-        gameInterval = setInterval(draw, 100);
+        gameInterval = requestAnimationFrame(gameLoop); // Start the game loop using requestAnimationFrame
+    }
+}
+
+// Game loop to continuously update the game state
+function gameLoop() {
+    if (gameStarted) {
+        frameCount++; // Increment the frame count
+        if (frameCount % 10 === 0) { // Slow down the speed by updating every 10 frames
+            draw(); // Update the game visuals
+        }
+        gameInterval = requestAnimationFrame(gameLoop); // Continue the loop
     }
 }
 
 // End the game when snake dies
 function endGame() {
-    clearInterval(gameInterval);
     gameStarted = false;
+    playJumpScare(); // Call jump scare when the game ends
+}
+
+// Function to play jump scare sound
+function playJumpScare() {
+    jumpScareSound.currentTime = 0; // Reset sound to start
+    jumpScareSound.volume = volumeLevel / 100; // Ensure it uses the current volume level
+    jumpScareSound.play().catch(error => {
+        console.error('Error playing sound:', error);
+    }); // Play jump scare sound immediately
 }
 
 // Spawn apple at random position
@@ -147,3 +178,24 @@ document.addEventListener('keydown', (event) => {
 
 // Initial volume setup
 updateVolume();
+
+const menuButtons = document.querySelectorAll('.menu-button');
+const burgerMenu = document.getElementById('burgerMenu');
+
+// Function to toggle menu visibility and randomize button positions
+function toggleMenu() {
+    menuButtons.forEach(button => {
+        button.classList.toggle('show');
+        if (button.classList.contains('show')) {
+            // Get random positions within the viewport
+            const x = Math.random() * (window.innerWidth - 100); // 100 is a rough estimate for button width
+            const y = Math.random() * (window.innerHeight - 50); // 50 is a rough estimate for button height
+            button.style.position = 'absolute'; // Allow absolute positioning
+            button.style.left = `${x}px`;
+            button.style.top = `${y}px`;
+        }
+    });
+}
+
+// Event listener for the burger menu button
+burgerMenu.addEventListener('click', toggleMenu);
