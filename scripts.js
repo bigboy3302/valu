@@ -28,16 +28,16 @@ function toggleMenu() {
 // Function to toggle dark mode and show/hide the surprise image
 function toggleDarkMode() {
     const body = document.body;
-    const isDarkMode = body.classList.toggle('BFF');
+    const isDarkMode = body.classList.toggle('dark-mode'); // Changed class name for clarity
 
     if (isDarkMode) {
         imgBox.style.display = 'block';
-        darkModeButton.textContent = 'BFF'; // Changed text for clarity
+        darkModeButton.textContent = 'BFF'; // Updated text for clarity
         showNextImage();
         startSurpriseAnimation();
     } else {
         imgBox.style.display = 'none';
-        darkModeButton.textContent = 'BFF'; // Changed text for clarity
+        darkModeButton.textContent = 'BFF'; // Updated text for clarity
         stopSurpriseAnimation();
     }
 }
