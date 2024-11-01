@@ -4,7 +4,7 @@ const boxSize = 20;
 let snake, direction, apple, bombs, volumeLevel, gameInterval, gameStarted, frameCount;
 
 // Add the audio element for the jump scare
-const jumpScareSound = new Audio('ssd.mp3'); // Make sure this file is in the correct path
+const jumpScareSound = new Audio('wtf.mp3'); // Make sure this file is in the correct path
 const appleSound = new Audio('num num.mp3'); // Sound for eating apple
 const bombSound = new Audio('cabum.mp3');   // Sound for hitting bomb
 

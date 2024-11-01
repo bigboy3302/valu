@@ -52,7 +52,7 @@ function selectNumber(number) {
     if (selectedNumbers.length < maxSelections) {
         if (!selectedNumbers.includes(number)) {
             selectedNumbers.push(number);
-            selectedNumbersInput.value = `+371 ${selectedNumbers.join(' ')}`;
+            selectedNumbersInput.value = ` ${selectedNumbers.join(' ')}`;
             // Reposition all cards (including the selected number)
             randomizeAllCards();
         }
